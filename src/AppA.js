@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import { Container, Row } from 'reactstrap';
-
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import LoginForm from './component/LoginForm';
 import Greenhouses from './component/Greenhouses';
 import Greenhouse from './component/Greenhouse';
-import Plant from './component/Plant'
-
-import Navbar from './component/Navbar';
 
 import { storageEmail } from './common/utils';
 
@@ -32,21 +28,16 @@ class App extends Component {
   }
 
   render() {
-    // const { email, greenhouses, greenhouse, greenhousePlant } = this.state;
+    const { email, greenhouses, greenhouse, greenhousePlant } = this.state;
     return (
-      <Router>
-        <div>
-          <Navbar />
-          <Container>
-            <Row>
-              <Route path="/" exact component={LoginForm} />
-              <Route path="/greenhouses" exact component={Greenhouses} />
-              <Route path="/greenhouses/:id" exact component={Greenhouse} />
-              <Route path="/greenhouses/:greenhouseId/plant/:id" exact component={Plant} />
-            </Row>
-          </Container>
-        </div>
-      </Router>
+      <div>
+        
+        <Grid container spacing={24}>
+          {email.length === 0 && <LoginForm saveParent={this.handlerChange} />}
+          {email.length > 0 && greenhouse === null && (<Greenhouses greenhouses={greenhouses} saveParent={this.handlerChange} />)}
+          {email.length > 0 && greenhouse !== null && <Greenhouse greenhousePlant={greenhousePlant} greenhouse={greenhouse} saveParent={this.handlerChange} />}
+        </Grid>
+      </div>
     );
   }
 }
