@@ -6,7 +6,8 @@ import { Container, Row } from 'reactstrap';
 import LoginForm from './component/LoginForm';
 import Greenhouses from './component/Greenhouses';
 import Greenhouse from './component/Greenhouse';
-import Plant from './component/Plant'
+import Plant from './component/Plant';
+import CreatePlant from './component/CreatePlant';
 
 import Navbar from './component/Navbar';
 
@@ -42,6 +43,7 @@ class App extends Component {
               <Route path="/" exact component={LoginForm} />
               <Route path="/greenhouses" exact component={Greenhouses} />
               <Route path="/greenhouses/:id" exact component={Greenhouse} />
+              <Route path="/greenhouses/:greenhouseId/create-plant" exact component={CreatePlant} />
               <Route path="/greenhouses/:greenhouseId/plant/:id" exact component={Plant} />
             </Row>
           </Container>

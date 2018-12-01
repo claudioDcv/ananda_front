@@ -3,7 +3,7 @@ import { Row, Col, Card, CardBody, CardTitle, CardSubtitle, CardHeader, Badge } 
 import { Link } from "react-router-dom";
 
 import GreenhouseService from '../http/service/GreenhouseService';
-import { createRange } from '../common/utils';
+import { createRange, fromToUri } from '../common/utils';
 import Loader from './Loader';
 
 class Greenhouse extends Component {
@@ -37,7 +37,7 @@ class Greenhouse extends Component {
     }
     getPlant(list, x, y) {
         const { greenhouse } = this.state;
-        const plant = list.find(e => e.x === x && e.y === y);
+        const plant = list.find(e => e.x === x + 1 && e.y === y + 1);
         return plant ? (
             <Link to={`${this.props.match.url}/plant/${plant.id}`}
                 key={y}
@@ -65,13 +65,16 @@ class Greenhouse extends Component {
                     <CardHeader>
                         <CardTitle>{`${greenhouse.name} (${greenhouse.x}-${greenhouse.y})`}</CardTitle>
                         <CardSubtitle>{greenhouse.code}</CardSubtitle>
+                        <Link to={fromToUri(this.props.match.url, 'create-plant')}>
+                            Ver
+                        </Link>
                     </CardHeader>
                     <CardBody>
                         <p>Plantas <strong>{greenhouse.plant_count}</strong></p>
                         <Row container xs={12} md={12}>
                             {this.getNotAsignedPlant(greenhousePlant).map(plant => (
                                 <Col key={plant.id} xs={12} sm={3} md={2}>
-                                    <Link key={plant.id} to={`${this.props.match.url}/plant/${plant.id}`}>
+                                    <Link key={plant.id} to={fromToUri(this.props.match.url, `plant/${plant.id}`)}>
                                         <Badge color="success">({plant.id}) {plant.name}</Badge >
                                     </Link>
                                 </Col>
